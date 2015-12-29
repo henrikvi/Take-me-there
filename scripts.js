@@ -79,7 +79,13 @@ function processRoute (data){
     segmentKind.length = 0;
 	segmentDuration.length = 0;
     
-    segments.forEach(function (segments){
+    $.each(segments, function(index, value){
+        processSegments(value);
+    });
+    printRoute();
+}
+
+function processSegments (segments){
         if (segments.kind !== 'flight'){
             segmentNames.push(segments.sName + ' to ' + segments.tName);
         } else {
@@ -93,9 +99,7 @@ function processRoute (data){
 		} else {
             segmentDuration.push(segments.duration);
         }
-    });
-    printRoute();
-}
+    }
 
 function printRoute (){
     for (i = 0; i < segmentKind.length; i++) {
