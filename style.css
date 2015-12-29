@@ -1,0 +1,171 @@
+#imageContainer {
+    padding-top: 100vh;
+    /*margin: 0 auto;*/
+    position:relative;
+    left: 20%;
+    width: 60%;
+    
+    -webkit-transition: all 1.2s;
+    -moz-transition: all 1.2s;
+    -ms-transition: all 1.2s;
+    -o-transition: all 1.2s;
+    transition: all 1.2s;
+    transition-timing-function: ease;
+}
+
+#imageContainer.small {
+    padding-top: 50vh;
+}
+
+.image {
+    margin: 10px;
+    border: solid 1px;
+}
+
+#lightbox {
+    position:fixed;
+    top:0; 
+    left:0; 
+    width:100%; 
+    height:100%; 
+    background: rgba(0,0,0,.7);
+    z-index: 5;
+}
+
+#routeContainer {
+    float: left;
+    background-color: white;
+}
+
+#routeImage {
+    float: left;
+}
+
+#content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+header {
+    width: 100%;
+    /*height: 100vh;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    /*background-color: transparent;
+    background-repeat: no-repeat;
+    background-image: url(img/beach.jpg);
+    background-size: 100vw;*/
+    
+    -webkit-transition: height 0.7s;
+    -moz-transition: height 0.7s;
+    -ms-transition: height 0.7s;
+    -o-transition: height 0.7s;
+    transition: height 0.7s;
+    /*transition: opacity 2s;*/
+    transition-timing-function: ease;
+}
+
+header.small {
+    height: 75px;
+    background-color: rgba(169, 169, 169, 0.97);
+}
+
+ header h1 {
+    float: left;
+    font-family: "Futura", sans-serif;
+    font-weight: 70;
+    font-size: 5em;
+    color: #AAFFFF;
+    margin: 1em;
+     
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+#scroll {
+    position: fixed;
+    top: 70%;
+    left: 40%;
+    width: 20%;
+    
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+#scroll:hover {
+    width: 25%;
+    left: 37.5%;
+}
+
+header.small h1 {
+    font-size: 1.5em;
+    float: left;
+    margin: 1em;
+}
+
+header.small #scroll {
+    visibility: hidden;
+    left: 40%;
+    width: 20%;
+}
+
+header a {
+    float: right;
+    font-family: "Futura", sans-serif;
+    color: darkcyan;
+    margin: 2em;
+    
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+header a:hover {
+    color: azure;
+}
+
+body {
+    background-repeat: no-repeat;
+    background-image: url(img/beach.jpg);
+    background-size: 100vw;
+    background-attachment: fixed;
+}
+
+/* MEDIA QUERIES*/
+
+@media all and (max-width: 660px) {
+    
+    body {
+    background-repeat: no-repeat;
+    background-image: url(img/beach.jpg);
+    background-size: 100vh;
+    background-attachment: fixed;
+}
+    
+    header h1{
+        display: block;
+        font-size: 2em;
+        text-align: center;
+        float: none;
+    }
+    
+    header a {
+        display: block;
+        text-align: center;
+        float: none;
+    }
+    
+}
