@@ -6,6 +6,7 @@ var segmentKind = [];
 var segmentDuration = [];
 var lightbox = $('#lightbox');
 
+//Search instagram by tag, set up landing page functions
 function initialize() {
     lightbox.hide();
     $.ajax({
@@ -13,7 +14,7 @@ function initialize() {
         dataType: 'jsonp',
         data:{ 
             client_id: '***REMOVED***',
-            count: 100
+            count: 200
         },
         success: imagesFetched,    
     });
@@ -29,11 +30,13 @@ function shrinkHeader () {
       $('header').toggleClass('small', $(document).scrollTop() > 0);
 }
 
+//Fetch image data from instagram
 function imagesFetched(data) {
     console.log("DATA: ", data);
     data.data.forEach(printImages);
 }
 
+//Check that images have location data, print images to imageContainer and link to lightbox
 function printImages (data) {
     if(data.location !== null && typeof data.location !== 'undefined'){
         var imgUrl = data.images.low_resolution.url;
@@ -51,6 +54,7 @@ function printImages (data) {
 //TÄHÄN ELSE-ERROR TMS. HAKEMAAN LISÄÄ KUVIA JOS SIJAINTI EI TIEDETTY? KORVATTU LISÄÄMÄLLÄ PYYNNÖN COUNT-ARVOA
 }
 
+//Fetch route data from rome2rio
 function getRoute (lat, lng) {
     console.log("koordinaatit", lat, lng);
     //blockPage();
@@ -60,6 +64,7 @@ function getRoute (lat, lng) {
     });
 }
 
+//Lightbox-on
 function blockPage (src){
     console.log(src);
     lightbox.show();
@@ -67,11 +72,13 @@ function blockPage (src){
     lightbox.click(destroyLightbox);
 }
 
+//Lightbox-off
 function destroyLightbox(){
         lightbox.hide();
         $('#routeText').empty();
     }
 
+//Prepare and loop through route segments
 function processRoute (data){
     console.log("reitti: ", data);
     var segments = data.routes[0].segments;
@@ -85,6 +92,7 @@ function processRoute (data){
     printRoute();
 }
 
+//Format segment data
 function processSegments (segments){
         if (segments.kind !== 'flight'){
             segmentNames.push(segments.sName + ' to ' + segments.tName);
@@ -101,6 +109,7 @@ function processSegments (segments){
         }
     }
 
+// Loop and print all route segments
 function printRoute (){
     for (i = 0; i < segmentKind.length; i++) {
         $('#routeText').append('<em>' + segmentKind[i] + '</em> ' + segmentNames[i] + ' <em>' + segmentDuration[i] + ' min</em><br>');
