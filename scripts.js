@@ -1,9 +1,9 @@
 var lat;
 var lng;
-var routeContainer;
 var segmentNames = [];
 var segmentKind = [];
 var segmentDuration = [];
+var polylineCoords = [];
 var lightbox = $('#lightbox');
 
 //Search instagram by tag, set up landing page functions
@@ -45,7 +45,7 @@ function printImages (data) {
         var newImage = $('<img>');
         
         newImage.attr({
-            src: data.images.low_resolution.url,
+            src: data.images.standard_resolution.url,
             class: "image",
             onclick: "getRoute(" + lat + "," + lng + "); blockPage(this.src);"
         });
@@ -56,8 +56,7 @@ function printImages (data) {
 
 //Fetch route data from rome2rio
 function getRoute (lat, lng) {
-    console.log("koordinaatit", lat, lng);
-    //blockPage();
+    //console.log("image coordinates", lat, lng);
     $.ajax({
         'url': 'http://free.rome2rio.com/api/1.2/json/Search?key=***REMOVED***&oName=Helsinki&dPos=' + lat + ',' + lng + '&oKind=city&dKind=city',
         'success': processRoute
@@ -76,9 +75,11 @@ function blockPage (src){
 function destroyLightbox(){
         lightbox.hide();
         $('#routeText').empty();
+        $('#map').empty();
+        polylineCoords = [];
     }
 
-//Prepare and loop through route segments
+//Prepare and loop through route segments ie. different parts of the route
 function processRoute (data){
     console.log("reitti: ", data);
     var segments = data.routes[0].segments;
@@ -90,6 +91,8 @@ function processRoute (data){
         processSegments(value);
     });
     printRoute();
+    preparePolyline(data);
+    initMap();
 }
 
 //Format segment data
@@ -115,6 +118,72 @@ function printRoute (){
         $('#routeText').append('<em>' + segmentKind[i] + '</em> ' + segmentNames[i] + ' <em>' + segmentDuration[i] + ' min</em><br>');
     }
 }
+
+//Place route coordinates in an array for maps polyline
+function preparePolyline(data){
+    var stops = data.routes[0].stops
+    for (i = 0; i < stops.length; i++) {
+        var loc = stops[i].pos.split(",");
+        var lat = parseFloat(loc[0])
+        var lng = parseFloat(loc[1])
+        polylineCoords.push({lat:lat, lng:lng});
+    }
+}
+
+//Set up google map for displaying route
+function initMap(){
+    var customMapType = new google.maps.StyledMapType([
+      {
+        "stylers": [
+          { "hue": "#AAFFFF" },
+          { "gamma": 0.66 },
+          { "saturation": -83 }
+        ]
+      },{
+        "featureType": "water",
+        "stylers": [
+          { "lightness": -16 },
+          { "hue": "#0008ff" }
+        ]
+      },{
+        "elementType": "labels.text",
+        "stylers": [
+          { "visibility": "simplified" }
+        ]
+      }
+    ], {
+      name: 'Custom Style'
+  });
+    var customMapTypeId = 'custom_style';
+    
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 1,
+        disableDefaultUI: true,
+        mapTypeControlOptions: {
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
+        }
+    });
+    
+    map.mapTypes.set(customMapTypeId, customMapType);
+    map.setMapTypeId(customMapTypeId);
+    
+    //draw polyline according to rome2rio route coordinates
+    var mapRoute = new google.maps.Polyline({
+    path: polylineCoords,
+    geodesic: true,
+    });
+
+    mapRoute.setMap(map);
+    
+    //PASKAAAAAA
+   /*var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < polylineCoords.length; i++) {
+        bounds.extend(polylineCoords[i].lat, polylineCoords[i].lng);
+    }
+    map.fitBounds(bounds);*/
+}
+
 
 $(document).ready(function() {
 		initialize();
