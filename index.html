@@ -5,21 +5,22 @@
         <title>Take me there!</title>
         <link href="style.css" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=***REMOVED***"></script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=***REMOVED***"></script>
     </head>
     
     <body>
         <header>
             <h1>Take me there!</h1>
-            <a href=".">Get MORE!</a>
-            <img src="img/scroll.svg" id="scroll">
         </header>
         <div id="lightbox">
-            <div id="content">
-                <div id="routeContainer">
-                    <img id="routeImage">
-                    <p id="routeText"></p>
+            <div id="routeContainer">
+                <div class="left">
                     <div id="map"></div>
+                    <p id="routeText"></p>
+                </div>
+                <div class="right">
+                    <img id="routeImage">
+                    <p id="imageCaption"></p>
                 </div>
             </div>
         </div>

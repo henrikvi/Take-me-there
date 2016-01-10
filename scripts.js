@@ -18,21 +18,11 @@ function initialize() {
         },
         success: imagesFetched,    
     });
-    $(window).on("scroll touchmove", shrinkHeader);
-    $('#scroll').click(scrollDown);
-}
-
-function scrollDown () {
-    $('html, body').animate({ scrollTop: 500 }, 750);
-}
-
-function shrinkHeader () {
-      $('header').toggleClass('small', $(document).scrollTop() > 0);
 }
 
 //Fetch image data from instagram
 function imagesFetched(data) {
-    console.log("DATA: ", data);
+    //console.log("DATA: ", data);
     data.data.forEach(printImages);
 }
 
@@ -47,11 +37,12 @@ function printImages (data) {
         newImage.attr({
             src: data.images.standard_resolution.url,
             class: "image",
-            onclick: "getRoute(" + lat + "," + lng + "); blockPage(this.src);"
+            alt: data.caption.text,
+            onclick: "getRoute(" + lat + "," + lng + "); blockPage(this.src, this.alt);"
         });
         $('#imageContainer').append(newImage);
     }
-//TÄHÄN ELSE-ERROR TMS. HAKEMAAN LISÄÄ KUVIA JOS SIJAINTI EI TIEDETTY? KORVATTU LISÄÄMÄLLÄ PYYNNÖN COUNT-ARVOA
+//TÄHÄN ELSE TMS. HAKEMAAN LISÄÄ KUVIA JOS SIJAINTI EI TIEDETTY? KORVATTU LISÄÄMÄLLÄ PYYNNÖN COUNT-ARVOA
 }
 
 //Fetch route data from rome2rio
@@ -64,17 +55,31 @@ function getRoute (lat, lng) {
 }
 
 //Lightbox-on
-function blockPage (src){
-    console.log(src);
+function blockPage (src, alt){
+    //console.log(alt);
     lightbox.show();
     document.getElementById('routeImage').src = src;
-    lightbox.click(destroyLightbox);
+    $('#imageCaption').append(alt);
+    
+    //Click outside lightbox to close
+    $(document).on('click', function(event) {
+      if ($(event.target).has('#routeContainer').length) {
+        destroyLightbox();
+      }
+    });
+    //ESC to close lightbox
+    $(document).keyup(function(e) { 
+        if (e.keyCode == 27) {
+            destroyLightbox();
+        }
+    });
 }
 
 //Lightbox-off
 function destroyLightbox(){
         lightbox.hide();
         $('#routeText').empty();
+        $('#imageCaption').empty();
         $('#map').empty();
         polylineCoords = [];
     }
@@ -158,7 +163,7 @@ function initMap(){
     
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
-        zoom: 1,
+        zoom: 2,
         disableDefaultUI: true,
         mapTypeControlOptions: {
         mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
@@ -171,7 +176,6 @@ function initMap(){
     //draw polyline according to rome2rio route coordinates
     var mapRoute = new google.maps.Polyline({
     path: polylineCoords,
-    geodesic: true,
     });
 
     mapRoute.setMap(map);

@@ -1,6 +1,27 @@
+
+
+#lightbox {
+    position:fixed;
+    top:0; 
+    left:0; 
+    width:100vw; 
+    height:100vh;
+    background: rgba(0,0,0,.7);
+    z-index: 5;
+    overflow-x: scroll;
+}
+
+ header h1 {
+    float: left;
+    font-family: "Futura", sans-serif;
+    font-weight: 70;
+    font-size: 5em;
+    color: #AAFFFF;
+    margin: 1em;
+}
+
 #imageContainer {
-    padding-top: 100vh;
-    /*margin: 0 auto;*/
+    padding-top: 30vh;
     position:relative;
     left: 10%;
     width: 80%;
@@ -13,168 +34,128 @@
     transition-timing-function: ease;
 }
 
-#imageContainer.small {
-    padding-top: 50vh;
-}
-
 .image {
     width: 30%;
     margin: 10px;
-    /*border: solid 1px;*/
-}
-
-#lightbox {
-    position:fixed;
-    top:0; 
-    left:0; 
-    width:100%; 
-    height:100%;
-    background: rgba(0,0,0,.7);
-    z-index: 5;
+    border: solid 1px;
 }
 
 #routeContainer {
-    float: left;
-    background-color: white;
+    width: 80vw;
+    height: 100vh;
+    margin: 10vw;
+    margin-top: 15px;
 }
 
-#routeImage {
+.left {
     float: left;
+    width: 40vw;
+}
+
+#map {
+
+    height: 40vw;
+    margin-top: inherit;
+}
+
+
+#routeText {
+    width: 35vw;
+}
+
+.right {
+    float: right;
     max-width: 40vw;
 }
 
-#content {
-    position: fixed;
-    top: 50%;
-    left: 30%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+#routeImage {
+    max-width: 40vw;
+    margin-top: inherit;
 }
 
-header {
-    width: 100%;
-    /*height: 100vh;*/
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9;
-    /*background-color: transparent;
-    background-repeat: no-repeat;
-    background-image: url(img/beach.jpg);
-    background-size: 100vw;*/
-    
-    -webkit-transition: height 0.7s;
-    -moz-transition: height 0.7s;
-    -ms-transition: height 0.7s;
-    -o-transition: height 0.7s;
-    transition: height 0.7s;
-    /*transition: opacity 2s;*/
-    transition-timing-function: ease;
-}
-
-header.small {
-    float: left;
-    height: 75px;
-    background-color: rgba(169, 169, 169, 0.97);
-}
-
- header h1 {
-    float: left;
-    font-family: "Futura", sans-serif;
-    font-weight: 70;
-    font-size: 5em;
-    color: #AAFFFF;
-    margin: 1em;
-     
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-}
-
-#scroll {
-    position: fixed;
-    top: 70%;
-    left: 40%;
-    width: 20%;
-    
-    -webkit-transition: all 0.1s;
-    -moz-transition: all 0.1s;
-    -ms-transition: all 0.1s;
-    -o-transition: all 0.1s;
-    transition: all 0.1s;
-}
-
-#scroll:hover {
-    width: 25%;
-    left: 37.5%;
-}
-
-header.small h1 {
-    font-size: 1.5em;
-    float: left;
-    margin: 1em;
-}
-
-header.small #scroll {
-    visibility: hidden;
-    left: 40%;
-    width: 20%;
-}
-
-header a {
+#imageCaption {
+    width: 35vw;
+    text-align: right;
+    word-wrap: break-word;
     float: right;
-    font-family: "Futura", sans-serif;
-    color: darkcyan;
-    margin: 2em;
-    
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
 }
 
-header a:hover {
-    color: azure;
+p{
+    font-family: Futura, sans-serif;
+    font-weight: 300;
+    color: white;
 }
 
 body {
     background-repeat: no-repeat;
-    background-image: url(img/beach.jpg);
+    background: #384752 url(img/beach.jpg);
     background-size: 100vw;
     background-attachment: fixed;
 }
 
-/* MEDIA QUERIES*/
+/* MEDIA QUERIES */
 
 @media all and (max-width: 660px) {
     
     body {
-    background-repeat: no-repeat;
-    background-image: url(img/beach.jpg);
-    background-size: 100vh;
+    background-size: 100vmax;
     background-attachment: fixed;
 }
     
     header h1{
         display: block;
-        font-size: 2em;
+        font-size: 1.5em;
         text-align: center;
         float: none;
     }
+ 
+#imageContainer {
+    padding-top: 1vh;
+    left: 5%;
+    width: 90%;
+}
+
+.image {
+    width: 96%;
+    margin: 2%;
+}
     
-    header a {
-        display: block;
-        text-align: center;
-        float: none;
-    }
+#routeContainer {
+    width: 90vw;
+    margin: 5vw;
+    margin-top: 15px;
+}
+    
+.left {
+    float: none;
+    width: 90%;
+    margin: 5%;
+}
+    
+#map {
+    width: 100%;
+    height: 50vh;
+}
+    
+#routeImage {
+    max-width: 100%;
+}
+    
+.right {
+    float: none;
+    max-width: 90%;
+    margin: 5%;
+}
+    
+#routeText {
+    width: 100%;
+    text-align: center;
+}
+    
+#imageCaption {
+    width: 100%; 
+    text-align: center;
+}
     
 }
 
-#map {
-    width: 320px;
-    height: 200px;
-    float: left;
-}
