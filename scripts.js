@@ -1,5 +1,6 @@
 var lat;
 var lng;
+var map;
 var segmentNames = [];
 var segmentKind = [];
 var segmentDuration = [];
@@ -161,7 +162,7 @@ function initMap(){
   });
     var customMapTypeId = 'custom_style';
     
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
         zoom: 2,
         disableDefaultUI: true,
@@ -179,13 +180,16 @@ function initMap(){
     });
 
     mapRoute.setMap(map);
-    
-    //PASKAAAAAA
-   /*var bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < polylineCoords.length; i++) {
-        bounds.extend(polylineCoords[i].lat, polylineCoords[i].lng);
+    centerMap(mapRoute);
+}
+
+function centerMap(mapRoute){
+    var bounds = new google.maps.LatLngBounds();
+    var points = mapRoute.getPath().getArray();
+    for (var i = 0; i < points.length ; i++){
+        bounds.extend(points[i]);
     }
-    map.fitBounds(bounds);*/
+    map.fitBounds(bounds);
 }
 
 
