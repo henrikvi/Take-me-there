@@ -14,7 +14,7 @@ function initialize() {
         url: 'https://api.instagram.com/v1/tags/travel/media/recent?',
         dataType: 'jsonp',
         data:{ 
-            client_id: '***REMOVED***',
+            client_id: 'CLIENT ID',
             count: 200
         },
         success: imagesFetched,    
@@ -50,7 +50,7 @@ function printImages (data) {
 function getRoute (lat, lng) {
     //console.log("image coordinates", lat, lng);
     $.ajax({
-        'url': 'http://free.rome2rio.com/api/1.2/json/Search?key=***REMOVED***&oName=Helsinki&dPos=' + lat + ',' + lng + '&oKind=city&dKind=city',
+        'url': 'http://free.rome2rio.com/api/1.2/json/Search?key=API KEY&oName=Helsinki&dPos=' + lat + ',' + lng + '&oKind=city&dKind=city',
         'success': processRoute
     });
 }
